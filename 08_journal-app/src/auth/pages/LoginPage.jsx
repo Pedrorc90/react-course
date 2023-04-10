@@ -23,7 +23,7 @@ export const LoginPage =() => {
 
     const onSubmit = () => {
         event.preventDefault();
-        dispatch( startLoginWithEmailPassword(email, password) )
+        dispatch( startLoginWithEmailPassword({email, password}) )
     }
 
     const onGoogleSignIn = () => dispatch( startGoogleSignIn() )
@@ -31,13 +31,15 @@ export const LoginPage =() => {
 
     return ( 
         <AuthLayout title="Login">
-            <form onSubmit={ onSubmit } className="animate__animated animate__fadeIn animate__faster" >
+            <form onSubmit={ onSubmit } className="animate__animated animate__fadeIn animate__faster" aria-label="submit-form">
                 <Grid container>
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
                         <TextField label="Email" type="email" placeholder="email@google.com" fullWidth name='email' value={ email } onChange={ onInputChange }></TextField>
                     </Grid>
                     <Grid item xs={ 12 } sx={{ mt: 2 }}>
-                        <TextField label="Password" type="password" placeholder="password" fullWidth name='password' value={ password } onChange={ onInputChange }></TextField>
+                        <TextField label="Password" type="password" placeholder="password" fullWidth name='password' value={ password } onChange={ onInputChange } inputProps={{
+                            'data-testid': 'password'
+                        }}></TextField>
                     </Grid>
                     <Grid item xs={ 12 } display={ !!errorMessage ? '' : 'none' } sx={{ mt: 1 }}>
                            <Alert severity="error">{ errorMessage }</Alert>
@@ -47,7 +49,7 @@ export const LoginPage =() => {
                             <Button disabled={ isAuthenticating } type="submit" variant="contained" fullWidth>Login</Button>
                         </Grid>
                         <Grid item xs={ 12 } sm={ 6 }>
-                            <Button disabled={ isAuthenticating } variant="contained" fullWidth onClick={ onGoogleSignIn }>
+                            <Button disabled={ isAuthenticating } variant="contained" fullWidth onClick={ onGoogleSignIn } aria-label="google-btn">
                                 <Google />
                                 <Typography sx={{ ml: 1 }}>Google</Typography>
                             </Button>

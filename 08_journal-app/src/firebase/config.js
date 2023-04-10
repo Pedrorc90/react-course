@@ -2,10 +2,14 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore/lite'
+import { getEnvironments } from "../helpers/getEnvironments";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+const env = getEnvironments();
+
 // Your web app's Firebase configuration
+// Dev/Prod
 const firebaseConfig = {
   apiKey: "AIzaSyCHUn6Yhwzhp4WFNSEyWi6Zm-SE6GCXZuA",
   authDomain: "react-course-56913.firebaseapp.com",
@@ -14,6 +18,8 @@ const firebaseConfig = {
   messagingSenderId: "438070715254",
   appId: "1:438070715254:web:d61c99f5b69f5784029057"
 };
+
+
 
 // Initialize Firebase
 export const FirebaseApp = initializeApp(firebaseConfig);

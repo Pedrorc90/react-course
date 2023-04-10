@@ -3,7 +3,7 @@
 export const fileUpload = async( file ) => {
 
 
-    if ( !file ) throw new Error('File not exists')
+    if ( !file ) return null;
 
     const cloudUrl = 'https://api.cloudinary.com/v1_1/dn4kvm814/upload';
 
@@ -24,8 +24,7 @@ export const fileUpload = async( file ) => {
 
 
     } catch( error ) {
-        console.log(error)
-        throw new Error( error.message )
+        return null;
     }
 
 

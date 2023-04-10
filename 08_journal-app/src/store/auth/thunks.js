@@ -3,9 +3,8 @@ import { signInWithGoogle, registerUserWithEmailPassword, loginWithEmailPassword
 import { clearNotesLogout } from "../journal/journalSlice";
 import { checkingCredentials, login, logout } from "./authSlice"
 
-export const checkingAuthentication = ( email, password ) => {
+export const checkingAuthentication = ( ) => {
     return async( dispatch ) => {
-
         dispatch( checkingCredentials() );
     }
 }
@@ -31,13 +30,12 @@ export const startCreatingUserWithEmailPassword = ({ email, password, displayNam
     }
 }
 
-export const startLoginWithEmailPassword = ( email, password ) => {
+export const startLoginWithEmailPassword = ( {email, password} ) => {
     return async( dispatch ) => {
         dispatch( checkingCredentials() )
-        const resp = await loginWithEmailPassword({ email, password })
-        const { ok, uid, photoURL, errorMessage, displayName } = resp;
-        if ( !ok ) return dispatch( logout({ errorMessage }) )
-        dispatch( login( { uid, email, photoURL, displayName } ) )
+        const result = await loginWithEmailPassword({ email, password })
+        if ( !result.ok ) return dispatch( logout(result) )
+        dispatch( login( result ) )
     }
 }
 
